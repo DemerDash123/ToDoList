@@ -1,0 +1,25 @@
+@import "tailwindcss";
+body {
+  background-color: #181a1c;
+  height: 100vh;
+  width: 100vw;
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.transitionOfTime {
+  transition: all 0.3s ease-in-out;
+}
+.activeClicked {
+  background-color: #252f88be;
+  color: white;
+  border-color: #252f88;
+}
+.disabled {
+  cursor: not-allowed;
+  background-color: gray;
+  color: white;
+  border-color: gray;
+  pointer-events: none;
+}
