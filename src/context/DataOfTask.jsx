@@ -7,17 +7,20 @@ export let DataOfTask = createContext([
     title: "Read Book",
     description: "read one page of book",
     isDone: false,
+    hideFilter: false,
   },
   {
     id: uuidv4(),
     title: "eat healthy food",
     description: "",
     isDone: true,
+    hideFilter: false,
   },
   {
     id: uuidv4(),
     title: "go to gym",
     description: "chest and back",
     isDone: false,
+    hideFilter: false,
   },
 ]);

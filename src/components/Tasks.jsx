@@ -1,16 +1,40 @@
 import { useContext, useState } from "react";
 import { DataOfTask } from "../context/DataOfTask";
 import TaskConform from "./TaskConform";
-export default function Tasks({ dataTask, setDataTask }) {
+import EditInformation from "./EditInformation";
+
+export default function Tasks() {
+  let dataOfthing = useContext(DataOfTask);
+  let dataTask = dataOfthing.dataTask;
+  let setDataTask = dataOfthing.setDataTask;
+
   let [dataOfItemSure, setDataOfItemSure] = useState({
     idNumber: 0,
+    dataEditSure: false,
     sure: false,
     goToProcess: false,
     achieved: false,
+    deleteInfo: true,
   });
 
   function deleteHandler(idOfTask) {
-    setDataOfItemSure({ idNumber: idOfTask, sure: true, goToProcess: false });
+    setDataOfItemSure({
+      ...dataOfItemSure,
+      idNumber: idOfTask,
+      sure: true,
+      goToProcess: false,
+      deleteInfo: true,
+    });
+  }
+  function EditSpecificInformation(taskId) {
+    setDataOfItemSure({
+      ...dataOfItemSure,
+      idNumber: taskId,
+      dataEditSure: true,
+      sure: true,
+      goToProcess: false,
+      deleteInfo: true,
+    });
   }
   function handleTureChange(taskId) {
     let answer = dataTask.map((e) => {
@@ -20,6 +44,7 @@ export default function Tasks({ dataTask, setDataTask }) {
         return e;
       }
     });
+
     setDataTask(answer);
   }
   return (
@@ -29,7 +54,9 @@ export default function Tasks({ dataTask, setDataTask }) {
           return (
             <div
               key={taskData.id}
-              className="flex items-center justify-between w-full p-4 my-2 border-2 border-black rounded-md task bg-[#252f88] hover:py-6 hover:text-xl hover:shadow-2xl transitionOfTime "
+              className={`flex items-center justify-between w-full p-4 my-2 border-2 border-black rounded-md task bg-[#252f88] hover:py-6 hover:text-xl hover:shadow-2xl transitionOfTime  ${
+                taskData.hideFilter ? "hidden" : ""
+              }`}
             >
               <div className="w-2/3 text">
                 <h1 className="text-2xl font-bold text-white">
@@ -45,6 +72,7 @@ export default function Tasks({ dataTask, setDataTask }) {
                   } transitionOfTime`}
                 ></i>
                 <i
+                  onClick={() => EditSpecificInformation(taskData.id)}
                   className={
                     "text-blue-500 cursor-pointer fa-regular fa-pen-to-square"
                   }
@@ -61,6 +89,14 @@ export default function Tasks({ dataTask, setDataTask }) {
       </div>
       {dataOfItemSure.sure == true ? (
         <TaskConform
+          dataOfItemSureComponent={dataOfItemSure}
+          setDataOfItemSure={setDataOfItemSure}
+        />
+      ) : (
+        ""
+      )}
+      {dataOfItemSure.dataEditSure == true ? (
+        <EditInformation
           dataOfItemSureComponent={dataOfItemSure}
           setDataOfItemSure={setDataOfItemSure}
         />

@@ -1,23 +1,28 @@
 import { useState } from "react";
 import TaskConform from "../components/TaskConform";
 import { v4 as uuidv4 } from "uuid";
-export default function Submit({ dataTask, setDataTask }) {
+import { DataOfTask } from "../context/DataOfTask";
+import { useContext } from "react";
+export default function Submit() {
+  let dataOfthing = useContext(DataOfTask);
+  let dataTask = dataOfthing.dataTask;
+  let setDataTask = dataOfthing.setDataTask;
   let [addTask, setAddTask] = useState({
     textOfTask: "",
     sure: false,
     goToProcess: false,
+    deleteInfo: false,
   });
   function handleClick() {
-    setDataTask([
-      ...dataTask,
-      {
-        id: uuidv4(),
-        title: addTask.textOfTask,
-        description: "",
-        isDone: false,
-      },
-    ]);
-    setAddTask({ textOfTask: "", sure: true, goToProcess: false });
+    setAddTask({
+      id: uuidv4(),
+      textOfTask: addTask.textOfTask,
+      description: "",
+      isDone: false,
+      sure: true,
+      goToProcess: false,
+      deleteInfo: false,
+    });
   }
   return (
     <>

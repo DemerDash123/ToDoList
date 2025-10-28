@@ -1,36 +1,64 @@
 import React from "react";
+import { DataOfTask } from "../context/DataOfTask";
+import { useContext } from "react";
 
-export default function DeleteConform({
+export default function TaskConform({
   dataOfItemSureComponent,
   setDataOfItemSure,
 }) {
+  let dataOfthing = useContext(DataOfTask);
+  let dataTask = dataOfthing.dataTask;
+  let setDataTask = dataOfthing.setDataTask;
+  function handleYes() {
+    if (dataOfItemSureComponent.deleteInfo == true) {
+      setDataOfItemSure({
+        ...dataOfItemSureComponent,
+        sure: false,
+        goToProcess: true,
+      });
+      let DeleteConformation = dataTask.filter((e) => {
+        return e.id != dataOfItemSureComponent.idNumber;
+      });
+      setDataTask(DeleteConformation);
+    } else {
+      setDataTask([
+        ...dataTask,
+        {
+          id: dataOfItemSureComponent.id,
+          title: dataOfItemSureComponent.textOfTask,
+          description: "",
+          isDone: false,
+        },
+      ]);
+      setDataOfItemSure({
+        ...dataOfItemSureComponent,
+        textOfTask: "",
+        sure: false,
+        goToProcess: true,
+      });
+    }
+  }
+  function handleNo() {
+    setDataOfItemSure({
+      ...dataOfItemSureComponent,
+      sure: false,
+      goToProcess: false,
+    });
+  }
   return (
     <div className="absolute  flex flex-col items-center justify-center w-screen h-screen bg-[#00000050] ">
       <div className="absolute flex flex-col items-center justify-center px-10 py-5 bg-gray-500 rounded-md">
         <h1 className="text-4xl">Are you sure you want to delete this one</h1>
-        <div className="mt-5 space-x-3 buttons">
+        <div className="mt-5 space-x-3 buttons flex justify-between items-center">
           <button
             className="px-4 py-2 text-center text-white bg-pink-700 border-2 border-black rounded-md cursor-pointer w-sm hover:bg-pink-600 transitionOfTime"
-            onClick={() => {
-              console.log(dataOfItemSureComponent.textOfTask);
-              setDataOfItemSure({
-                ...dataOfItemSureComponent,
-                sure: false,
-                goToProcess: true,
-              });
-            }}
+            onClick={handleYes}
           >
             Yes
           </button>
           <button
             className="px-4 py-2 text-center text-white bg-pink-700 border-2 border-black rounded-md cursor-pointer w-sm hover:bg-pink-600 transitionOfTime"
-            onClick={() => {
-              setDataOfItemSure({
-                ...dataOfItemSureComponent,
-                sure: false,
-                goToProcess: false,
-              });
-            }}
+            onClick={handleNo}
           >
             No
           </button>

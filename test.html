@@ -7,20 +7,26 @@
   </head>
   <body>
     <script>
-      let message = "zaHello Worldz";
-      let alphabet = "abcdefghijklmnopqrstuvwxyz";
-      let answer = message.split("").map((e) => {
-        if (alphabet.includes(e.toLowerCase())) {
-          let counter = alphabet.indexOf(e.toLowerCase());
-          if (e.toLowerCase() == e) {
-            return alphabet[(counter + 13) % 26];
-          } else {
-            return alphabet[(counter + 13) % 26].toUpperCase();
+      let s = "stress";
+      let answer = "";
+      let count = 0;
+      for (let i = 0; i < s.length; i++) {
+        count = 0;
+        for (let d = 0; d < s.length; d++) {
+          if (s[i].toLowerCase() == s[d].toLowerCase()) {
+            console.log(s[i].toLowerCase(), s[d].toLowerCase());
+            count++;
+            if (count > 2) {
+              break;
+            }
           }
-        } else {
-          return e;
         }
-      });
+        console.log(count, s[i]);
+        if (count < 2) {
+          answer = s[i];
+        }
+      }
+      console.log(answer);
     </script>
   </body>
 </html>

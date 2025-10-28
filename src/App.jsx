@@ -5,30 +5,45 @@ import { useState } from "react";
 function App() {
   let [dataTask, setDataTask] = useState(DataOfTask._currentValue);
   let [checkActive, setCheckActive] = useState([true, false, false]);
+
   function allAchieved() {
     setCheckActive([true, false, false]);
-    setDataTask(DataOfTask._currentValue);
+    let all = dataTask.map((e) => {
+      return { ...e, hideFilter: false };
+    });
+    setDataTask(all);
   }
+
   function fliterAchieved() {
-    let achieved = DataOfTask._currentValue.filter((e) => {
-      return e.isDone == true;
+    let achieved = dataTask.map((e) => {
+      if (e.isDone == false) {
+        return { ...e, hideFilter: true };
+      } else {
+        return { ...e, hideFilter: false };
+      }
     });
     setCheckActive([false, true, false]);
-
     setDataTask(achieved);
   }
   function fliterNotAchieved() {
-    let notAchieved = DataOfTask._currentValue.filter((e) => {
-      return e.isDone == false;
+    let notAchieved = dataTask.map((e) => {
+      if (e.isDone == false) {
+        return { ...e, hideFilter: false };
+      } else {
+        return { ...e, hideFilter: true };
+      }
     });
     setCheckActive([false, false, true]);
+
     setDataTask(notAchieved);
   }
 
   return (
     <>
-      <DataOfTask.Provider value={dataTask}>
-        <div className="relative flex flex-col items-center justify-center p-4 mx-auto bg-white rounded shadow w-xl">
+      <DataOfTask.Provider value={{ dataTask, setDataTask }}>
+        <div
+          className={`relative flex flex-col items-center justify-center p-4 mx-auto bg-white rounded shadow w-xl `}
+        >
           <h1 className="text-4xl font-bold ">Tasks</h1>
           <ul className="flex items-center justify-center my-4 space-x-2">
             <li
@@ -56,8 +71,8 @@ function App() {
               Not Achieved
             </li>
           </ul>
-          <Tasks dataTask={dataTask} setDataTask={setDataTask} />
-          <Submit dataTask={dataTask} setDataTask={setDataTask} />
+          <Tasks />
+          <Submit />
         </div>
       </DataOfTask.Provider>
     </>
