@@ -1,12 +1,7 @@
 import { useState } from "react";
 import TaskConform from "../components/TaskConform";
 import { v4 as uuidv4 } from "uuid";
-import { DataOfTask } from "../context/DataOfTask";
-import { useContext } from "react";
 export default function Submit() {
-  let dataOfthing = useContext(DataOfTask);
-  let dataTask = dataOfthing.dataTask;
-  let setDataTask = dataOfthing.setDataTask;
   let [addTask, setAddTask] = useState({
     textOfTask: "",
     sure: false,

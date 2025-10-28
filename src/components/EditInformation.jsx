@@ -62,7 +62,7 @@ export default function EditInformation({
           type="text"
           placeholder="Edit the description"
         />
-        <div className="flex items-center justify-between mt-5 space-x-3 buttons">
+        <div className="flex items-center justify-between mt-5 space-x-3 buttons max-w-[300px]">
           <button
             onClick={handleSave}
             className="px-4 py-2 text-center text-white bg-pink-700 border-2 border-black rounded-md cursor-pointer w-sm hover:bg-pink-600 transitionOfTime"

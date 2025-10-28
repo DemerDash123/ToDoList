@@ -31,7 +31,7 @@ export default function Tasks() {
       ...dataOfItemSure,
       idNumber: taskId,
       dataEditSure: true,
-      sure: true,
+      sure: false,
       goToProcess: false,
       deleteInfo: true,
     });
@@ -49,7 +49,7 @@ export default function Tasks() {
   }
   return (
     <>
-      <div className="w-full tasks  h-[350px] overflow-y-auto flex justify-center items-center flex-col">
+      <div className="w-full tasks  max-h-[356px] overflow-y-auto flex justify-center items-center flex-col">
         {dataTask.map((taskData) => {
           return (
             <div
