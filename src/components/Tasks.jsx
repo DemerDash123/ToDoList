@@ -49,20 +49,30 @@ export default function Tasks() {
   }
   return (
     <>
-      <div className="w-full tasks">
+      <div className="w-full tasks  h-[350px] overflow-y-auto flex justify-center items-center flex-col">
         {dataTask.map((taskData) => {
           return (
             <div
               key={taskData.id}
               className={`flex items-center justify-between w-full p-4 my-2 border-2 border-black rounded-md task bg-[#252f88] hover:py-6 hover:text-xl hover:shadow-2xl transitionOfTime  ${
                 taskData.hideFilter ? "hidden" : ""
-              }`}
+              } ${taskData.isDone ? "bg-[#252f88f0]" : "bg-[#252f88]"}`}
             >
               <div className="w-2/3 text">
-                <h1 className="text-2xl font-bold text-white">
+                <h1
+                  className={`text-2xl font-bold text-white ${
+                    taskData.isDone ? "line-through" : ""
+                  } `}
+                >
                   {taskData.title}
                 </h1>
-                <p className="text-white ">{taskData.description}</p>
+                <p
+                  className={`text-white ${
+                    taskData.isDone ? "line-through" : ""
+                  }`}
+                >
+                  {taskData.description}
+                </p>
               </div>
               <div className="flex items-center justify-around text-2xl text-white icons min-w-2/6">
                 <i

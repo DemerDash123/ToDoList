@@ -1,10 +1,18 @@
 import Tasks from "./components/Tasks";
 import Submit from "./components/Submit";
 import { DataOfTask } from "./context/DataOfTask";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 function App() {
   let [dataTask, setDataTask] = useState(DataOfTask._currentValue);
-  let [checkActive, setCheckActive] = useState([true, false, false]);
+  let [checkActive, setCheckActive] = useState(
+    window.localStorage.getItem("checkActive") == null
+      ? [true, false, false]
+      : JSON.parse(window.localStorage.getItem("checkActive"))
+  );
+  useEffect(() => {
+    window.localStorage.setItem("itemOfItems", JSON.stringify(dataTask));
+    window.localStorage.setItem("checkActive", JSON.stringify(checkActive));
+  }, [dataTask, checkActive]);
 
   function allAchieved() {
     setCheckActive([true, false, false]);
@@ -38,13 +46,11 @@ function App() {
     setDataTask(notAchieved);
   }
 
-  window.localStorage.setItem("itemOfItems", JSON.stringify(dataTask));
-  // console.log(JSON.parse(window.localStorage.getItem("itemOfItems")));
   return (
     <>
       <DataOfTask.Provider value={{ dataTask, setDataTask }}>
         <div
-          className={`relative flex flex-col items-center justify-center p-4 mx-auto bg-white rounded shadow w-xl `}
+          className={`relative flex flex-col items-center justify-center p-4 mx-auto bg-white rounded shadow `}
         >
           <h1 className="text-4xl font-bold ">Tasks</h1>
           <ul className="flex items-center justify-center my-4 space-x-2">
