@@ -1,26 +1,17 @@
 import { createContext } from "react";
 
 import { v4 as uuidv4 } from "uuid";
-export let DataOfTask = createContext([
-  {
-    id: uuidv4(),
-    title: "Read Book",
-    description: "read one page of book",
-    isDone: false,
-    hideFilter: false,
-  },
-  {
-    id: uuidv4(),
-    title: "eat healthy food",
-    description: "",
-    isDone: true,
-    hideFilter: false,
-  },
-  {
-    id: uuidv4(),
-    title: "go to gym",
-    description: "chest and back",
-    isDone: false,
-    hideFilter: false,
-  },
-]);
+console.log();
+export let DataOfTask = createContext(
+  JSON.parse(window.localStorage.getItem("itemOfItems")) == null
+    ? [
+        {
+          id: uuidv4(),
+          title: "first task",
+          description: "Enter the description of the task",
+          isDone: false,
+          hideFilter: false,
+        },
+      ]
+    : JSON.parse(window.localStorage.getItem("itemOfItems"))
+);

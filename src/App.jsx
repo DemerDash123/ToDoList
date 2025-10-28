@@ -38,6 +38,8 @@ function App() {
     setDataTask(notAchieved);
   }
 
+  window.localStorage.setItem("itemOfItems", JSON.stringify(dataTask));
+  // console.log(JSON.parse(window.localStorage.getItem("itemOfItems")));
   return (
     <>
       <DataOfTask.Provider value={{ dataTask, setDataTask }}>
