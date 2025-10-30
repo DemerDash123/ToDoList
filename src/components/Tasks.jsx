@@ -2,11 +2,12 @@ import { useContext, useState } from "react";
 import { DataOfTask } from "../context/DataOfTask";
 import TaskConform from "./TaskConform";
 import EditInformation from "./EditInformation";
-
+import { ToastContext } from "../context/ToastContext";
 export default function Tasks() {
   let dataOfthing = useContext(DataOfTask);
   let dataTask = dataOfthing.dataTask;
   let setDataTask = dataOfthing.setDataTask;
+  let toastActive = useContext(ToastContext);
 
   let [dataOfItemSure, setDataOfItemSure] = useState({
     idNumber: 0,
@@ -37,6 +38,7 @@ export default function Tasks() {
     });
   }
   function handleTureChange(taskId) {
+    toastActive("change successfully");
     let answer = dataTask.map((e) => {
       if (e.id == taskId) {
         return { ...e, isDone: !e.isDone };

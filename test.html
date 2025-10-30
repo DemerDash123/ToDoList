@@ -7,26 +7,18 @@
   </head>
   <body>
     <script>
-      let s = "stress";
-      let answer = "";
-      let count = 0;
-      for (let i = 0; i < s.length; i++) {
-        count = 0;
-        for (let d = 0; d < s.length; d++) {
-          if (s[i].toLowerCase() == s[d].toLowerCase()) {
-            console.log(s[i].toLowerCase(), s[d].toLowerCase());
-            count++;
-            if (count > 2) {
-              break;
-            }
-          }
-        }
-        console.log(count, s[i]);
-        if (count < 2) {
-          answer = s[i];
+      let string = "food000";
+      let convertToArray = string.split("");
+      let save = [];
+      for (let i = 0; i < convertToArray.length; i++) {
+        if (!isNaN(Number(convertToArray[i]))) {
+          save.push(convertToArray[i]);
+          convertToArray[i] = "";
         }
       }
-      console.log(answer);
+      console.log(
+        convertToArray.join("") + (save.join("") + "0").slice(0, 3) + 1
+      );
     </script>
   </body>
 </html>

@@ -1,6 +1,7 @@
 import React from "react";
 import { DataOfTask } from "../context/DataOfTask";
 import { useContext } from "react";
+import { ToastContext } from "../context/ToastContext";
 
 export default function TaskConform({
   dataOfItemSureComponent,
@@ -9,6 +10,7 @@ export default function TaskConform({
   let dataOfthing = useContext(DataOfTask);
   let dataTask = dataOfthing.dataTask;
   let setDataTask = dataOfthing.setDataTask;
+  let toastActive = useContext(ToastContext);
   function handleYes() {
     if (dataOfItemSureComponent.deleteInfo == true) {
       setDataOfItemSure({
@@ -19,8 +21,10 @@ export default function TaskConform({
       let DeleteConformation = dataTask.filter((e) => {
         return e.id != dataOfItemSureComponent.idNumber;
       });
+      toastActive("Delete Successfully");
       setDataTask(DeleteConformation);
     } else {
+      toastActive("submit successfully");
       setDataTask([
         ...dataTask,
         {

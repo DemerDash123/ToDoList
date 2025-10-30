@@ -1,5 +1,6 @@
+import TaskConform from "./TaskConform";
 import { useState } from "react";
-import TaskConform from "../components/TaskConform";
+
 import { v4 as uuidv4 } from "uuid";
 export default function Submit() {
   let [addTask, setAddTask] = useState({
@@ -8,6 +9,7 @@ export default function Submit() {
     goToProcess: false,
     deleteInfo: false,
   });
+
   function handleClick() {
     setAddTask({
       id: uuidv4(),

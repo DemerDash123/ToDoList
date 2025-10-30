@@ -1,5 +1,7 @@
 import { useContext, useState } from "react";
 import { DataOfTask } from "../context/DataOfTask";
+import { ToastContext } from "../context/ToastContext";
+
 export default function EditInformation({
   dataOfItemSureComponent,
   setDataOfItemSure,
@@ -15,6 +17,7 @@ export default function EditInformation({
     isDone: theData.isDone,
     hideFilter: theData.hideFilter,
   });
+  let toastActive = useContext(ToastContext);
   function handleSave() {
     let changeTheInformation = dataTask.map((e) => {
       if (e.id == dataOfItemSureComponent.idNumber) {
@@ -29,6 +32,7 @@ export default function EditInformation({
         return e;
       }
     });
+    toastActive("finish Edit Information");
     setDataTask(changeTheInformation);
     setDataOfItemSure({
       ...dataOfItemSureComponent,
